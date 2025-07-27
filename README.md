@@ -19,6 +19,12 @@
 - 🔍 Pretty printing for objects and arrays with `[TYPE]` label
 - 🗂 Grouping support (`group`, `groupEnd`)
 - 🧩 No dependencies works in any browser with vanilla JS
+- 🖥️ Built-in UI panel for logs with:
+  - Toggleable log panel with dark mode styling
+  - Expand/collapse detailed JSON views
+  - Clear and export logs to a text file
+
+
 
 ---
 
