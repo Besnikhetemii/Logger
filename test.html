@@ -13,6 +13,10 @@
   <script src="logger.js"></script>
 <script>
 
+  slog.log('Message before clear');
+  slog.clear(); 
+
+
   slog.log('This is a regular log message.'); 
   /// [LOG] This is a regular log message.
 
@@ -77,40 +81,110 @@
   slog.error(null);
   /// [ERROR] null
 
-// Simple string message with custom tag and type label
-slog.log('DB', 'Connected successfully');  
-// Output: [LOG] [STRING] [DB] Connected successfully
+  // Simple string message with custom tag and type label
+  slog.log('DB', 'Connected successfully');  
+  // Output: [LOG] [STRING] [DB] Connected successfully
 
-// Object pretty printed (truncated if too long)
-slog.info('USER', { id: 123, name: 'Alice', roles: ['admin', 'editor'] });  
-// Output: [INFO] [OBJECT] [USER] {
-//   "id": 123,
-//   "name": "Alice",
-//   "roles": [
-//     "admin",
-//     "editor"
-//   ]
-// }
+  // Object pretty printed (truncated if too long)
+  slog.info('USER', { id: 123, name: 'Alice', roles: ['admin', 'editor'] });  
+  // Output: [INFO] [OBJECT] [USER] {
+  //   "id": 123,
+  //   "name": "Alice",
+  //   "roles": [
+  //     "admin",
+  //     "editor"
+  //   ]
+  // }
 
-// Array pretty printed
-slog.log('DATA', [1, 2, 3, 4, 5]);
-// Output: [LOG] [ARRAY] [DATA] [
-//   1,
-//   2,
-//   3,
-//   4,
-//   5
-// ]
+  // Array pretty printed
+  slog.log('DATA', [1, 2, 3, 4, 5]);
+  // Output: [LOG] [ARRAY] [DATA] [
+  //   1,
+  //   2,
+  //   3,
+  //   4,
+  //   5
+  // ]
 
-// Disable auto truncation and log long message
+  // Disable auto truncation and log long message
+  slog.setAutoTruncingOff();
+  slog.log('LONG', 'This is a very long message that will not be truncated even if it exceeds the max length of 100 characters...');
+
+  // Group logs
+  slog.group('User Actions');
+  slog.log('Clicked button');
+  slog.error('Button action failed');
+  slog.groupEnd();
+
+  //Time tracking example
+  slog.timeStart('fetchData', 'Fetch Data Operation');
+
+  setTimeout(() => {
+    slog.timeEnd('fetchData', 'Fetch Data Operation Completed');
+  }, 2000);
+  slog.log("Fetching data...");
+
+  // Structured logging example
+  slog.log('Structured Log', { event: 'user_signup', user: { id: 1, name: 'John Doe' } });
+  
+//ui slogger testing 
+
+// Turn on UI panel first
+slog.slogUIOn();
+
+// Clear console to start clean
+slog.clear();
+
+// Basic logs
+slog.log("LOG", "Hello from UI panel");
+slog.info("INFO", "This is an info message");
+slog.error("ERROR", "An error occurred!");
+
+// With tags
+slog.log("AUTH", "User logged in");
+slog.info("INIT", "System is initializing");
+slog.error("DB", "Database connection failed");
+
+// Structured logs
+slog.log("DATA", { id: 1, name: "Alice" });
+slog.info("LIST", [1, 2, 3, 4]);
+slog.error("ERROR_OBJ", { code: 500, msg: "Internal Server Error" });
+
+// Mixed types
+slog.log("MIXED", "String", 123, null, undefined, true, { a: 1 }, [2, 3]);
+
+// Long message - truncated
+slog.setAutoTruncingOn();
+slog.log("TRUNC", "This is a very long message that should get truncated after 100 characters so we can test truncation behavior in the UI and console output...");
+
+// Long message - full
 slog.setAutoTruncingOff();
-slog.log('LONG', 'This is a very long message that will not be truncated even if it exceeds the max length of 100 characters...');
+slog.log("FULL", "This message will not be truncated, no matter how long it gets. It's displayed in full.");
 
-// Group logs
-slog.group('User Actions');
-slog.log('Clicked button');
-slog.error('Button action failed');
+// Timestamps ON/OFF
+slog.setTimestamps(true);
+slog.info("TIMESTAMP", "This log has a timestamp");
+
+slog.setTimestamps(false);
+slog.info("NO-TIME", "This log has no timestamp");
+
+// Grouped logs
+slog.group("GROUP: USER ACTIONS");
+slog.log("ACTION", "Clicked Submit");
+slog.error("ACTION", "Submit failed");
 slog.groupEnd();
+
+// Timed operation
+slog.timeStart("fetchData", "Fetching Data");
+setTimeout(() => {
+  slog.timeEnd("fetchData", "Fetching Data Completed");
+}, 1000);
+
+// Structured logging event
+slog.log("STRUCTURED", { event: "user_signup", user: { id: 42, name: "Jane Doe" } });
+
+// Final message
+slog.log("FINAL", "All log types displayed in console and UI.");
 
 
 </script>

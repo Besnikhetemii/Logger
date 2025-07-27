@@ -1,0 +1,32 @@
+{
+  "name": "slogger-js",
+  "version": "1.0.0",
+  "description": "A lightweight vanilla JavaScript logger with colors, timestamps, grouping, and pretty printing.",
+  "main": "logger.min.js",
+  "browser": "logger.min.js",
+  "files": [
+    "logger.min.js",
+    "logger.js",
+    "README.md"
+],
+  "keywords": [
+    "logger",
+    "console",
+    "javascript",
+    "vanilla",
+    "browser",
+    "logging",
+    "debugging",
+    "slogger"
+  ],
+  "author": "Besnik Hetemi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Besnikhetemii/slogger-js"
+  },
+  "bugs": {
+    "url": "https://github.com/Besnikhetemii/slogger-js/issues"
+  },
+  "homepage": "https://github.com/Besnikhetemii/slogger-js#readme"
+}
